@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nasty</RootNamespace>
+    <AssemblyName>Nasty</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Button.cs" />
+    <Compile Include="Components\CheckBox.cs" />
+    <Compile Include="Components\ComboBox.cs" />
+    <Compile Include="Components\JQuery.cs" />
+    <Compile Include="Components\Link.cs" />
+    <Compile Include="Components\Option.cs" />
+    <Compile Include="Components\TextBox.cs" />
+    <Compile Include="Core\ClientSideFormPersister.cs" />
+    <Compile Include="Core\Component.cs" />
+    <Compile Include="Core\ComponentProxy.cs" />
+    <Compile Include="Core\ComponentRenderingHelper.cs" />
+    <Compile Include="Core\EventArgs.cs" />
+    <Compile Include="Core\Form.cs" />
+    <Compile Include="Core\FormEngine.cs" />
+    <Compile Include="Core\FormFactory.cs" />
+    <Compile Include="Core\FormPersister.cs" />
+    <Compile Include="Core\HtmlFragment.cs" />
+    <Compile Include="Core\InitProperty.cs" />
+    <Compile Include="Core\ParameterProvider.cs" />
+    <Compile Include="Core\RenderingContext.cs" />
+    <Compile Include="Core\ThrowableHandler.cs" />
+    <Compile Include="Core\ViewRenderer.cs" />
+    <Compile Include="Js\JsBoolean.cs" />
+    <Compile Include="Js\JsCall.cs" />
+    <Compile Include="Js\JsClosure.cs" />
+    <Compile Include="Js\JsContext.cs" />
+    <Compile Include="Js\JsExpression.cs" />
+    <Compile Include="Js\JsExpressionFactory.cs" />
+    <Compile Include="Js\JsList.cs" />
+    <Compile Include="Js\JsMap.cs" />
+    <Compile Include="Js\JsNumber.cs" />
+    <Compile Include="Js\JsSequence.cs" />
+    <Compile Include="Js\JsSerializable.cs" />
+    <Compile Include="Js\JsString.cs" />
+    <Compile Include="Js\JsVariable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ReflectionUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\SerializationUtils.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nasty", "Nasty\Nasty.csproj", "{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{507874A6-180B-4DD1-A567-B0024CAC759E}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		Nasty-Web1.vsmdi = Nasty-Web1.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NastyTests", "NastyTests\NastyTests.csproj", "{FB9E034F-1BC6-4DB9-A7DC-5B23A6161904}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nasty.Mvc", "Nasty.Mvc\Nasty.Mvc.csproj", "{48D2AFD7-D035-4955-AAC1-F01D6FBD3DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nasty.Samples", "Nasty.Samples\Nasty.Samples.csproj", "{DE96A72D-0836-4B03-B27E-0AFE025E3359}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Nasty-Web1.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C5F68B-2717-4FC1-9998-4AE8DB705DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9E034F-1BC6-4DB9-A7DC-5B23A6161904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E034F-1BC6-4DB9-A7DC-5B23A6161904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E034F-1BC6-4DB9-A7DC-5B23A6161904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E034F-1BC6-4DB9-A7DC-5B23A6161904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D2AFD7-D035-4955-AAC1-F01D6FBD3DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D2AFD7-D035-4955-AAC1-F01D6FBD3DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D2AFD7-D035-4955-AAC1-F01D6FBD3DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D2AFD7-D035-4955-AAC1-F01D6FBD3DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE96A72D-0836-4B03-B27E-0AFE025E3359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE96A72D-0836-4B03-B27E-0AFE025E3359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE96A72D-0836-4B03-B27E-0AFE025E3359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE96A72D-0836-4B03-B27E-0AFE025E3359}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
