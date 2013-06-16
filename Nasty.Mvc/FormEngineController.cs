@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Nasty.Core;
 using System;
-using Nasty.Js;
+
 namespace Nasty.Mvc
 {
     /**
@@ -19,8 +19,12 @@ namespace Nasty.Mvc
             var parameterProvider = new RequestParameterProvider(req);
             var viewRenderer = new MvcViewRenderer(ControllerContext);
 
-            var expr = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance)
-                .ProcessEvent(new ExceptionHandler());
+            var link = new SimpleErrorHandlingLink
+                {
+                    Next = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance)
+                };
+            var expr = link.DoProcess();
+            
 
             //if(resp.isCommitted()) return;
 
@@ -32,14 +36,7 @@ namespace Nasty.Mvc
             resp.Expires = 0;
             resp.ExpiresAbsolute = DateTime.Now; // Proxies.
 
-            resp.Output.Write(expr.Encode());
-        }
-    }
-
-    class ExceptionHandler : IExceptionHandler
-    {
-        public IJsExpression Handle(Exception e) {
-            return new JsCall("alert", e.Message);
+            if(expr != null) resp.Output.Write(expr.Encode());
         }
     }
 }

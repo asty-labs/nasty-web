@@ -25,18 +25,17 @@ namespace Nasty.Mvc
             return RenderFragment(form, null, model);
         }
 
-        ViewDataDictionary PrepareViewData(object model)
+        static ViewDataDictionary PrepareViewData(object model)
         {
             if (model is ViewDataDictionary) return model as ViewDataDictionary;
             var viewData = new ViewDataDictionary();
-            viewData["Model"] = model;
+            viewData["model"] = model;
             return viewData;
         }
 
         public string RenderFragment(Form form, string fragmentName, object model) {
             var viewData = PrepareViewData(model);
             viewData["currentForm"] = form;
-            viewData["model"] = model;
             var viewName = fragmentName == null ? "~/Forms/" + form.GetType().Name + ".aspx" : "~/Forms/" + form.GetType().Name + "_" + fragmentName + ".ascx";
             return RenderPartialViewToString(viewName, viewData);
         }

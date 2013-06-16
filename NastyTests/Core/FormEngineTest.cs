@@ -19,7 +19,7 @@ namespace NastyTests.Core
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));
             parameterProvider.Add("EVT.srcId", "formId.testSrcId");
             parameterProvider.Add("EVT.someParameter", "testParameter");
-            var expr = formEngine.ProcessEvent(null);
+            var expr = formEngine.DoProcess();
             form.Output = "testSrcId/testParameter";
             Assert.AreEqual("$$('formId').jasty(\"Form\", \"update\", [\"" +
                     Convert.ToBase64String(SerializationUtils.SerializeObject(form)) + "\"]);", expr.Encode());
@@ -34,15 +34,24 @@ namespace NastyTests.Core
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));
             parameterProvider.Add("EVT.srcId", "formId.testSrcId");
             parameterProvider.Add("EVT.someParameter", "testParameter");
-                
-            var expr = formEngine.ProcessEvent(new TestExceptionHandler());
+
+            var link = new TestErrorHandlingLink {Next = formEngine};
+            var expr = link.DoProcess();
             Assert.AreEqual("alert(\"some error\")", expr.Encode());
         }
 
-        public class TestExceptionHandler : IExceptionHandler
+        public class TestErrorHandlingLink : AbstractProcessingLink
         {
-            public IJsExpression Handle(Exception e) {
-                return new JsCall("alert", e.Message);
+            public override IJsExpression DoProcess()
+            {
+                try
+                {
+                    return base.DoProcess();
+                }
+                catch (Exception e)
+                {
+                    return new JsCall("alert", e.Message);
+                }
             }
         }
 

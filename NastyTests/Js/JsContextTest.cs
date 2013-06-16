@@ -13,7 +13,7 @@ namespace NastyTests.Js
 			    JsContext.Add(new JsCall("init"));
 			    Assert.Fail();
 		    }
-		    catch(Exception e) {}
+		    catch(Exception) {}
 	    }
 	
 	    [TestMethod]

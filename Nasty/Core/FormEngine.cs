@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Nasty.Js;
-using System.Reflection;
+
 namespace Nasty.Core
 {
     /**
@@ -13,7 +13,8 @@ namespace Nasty.Core
      * @version 1.0
      *
      */
-    public class FormEngine {
+    public class FormEngine : IProcessingLink
+    {
 
         private readonly IParameterProvider _parameterProvider;
         private readonly IViewRenderer _viewRenderer;
@@ -119,23 +120,8 @@ namespace Nasty.Core
          * @param errorHandler  delegate to handle unprocessed exceptions
          * @return              JsExpression to be sent as the response
          */
-        public IJsExpression ProcessEvent(IExceptionHandler errorHandler) {
-            try
-            {
-                return JsContext.Execute(ProcessEvent);
-            }
-            catch (FormEngineException e)
-            {
-                return errorHandler.Handle(e.InnerException);
-            }
-            catch (TargetInvocationException e)
-            {
-                return errorHandler.Handle(e.InnerException);
-            }
-            catch (Exception t)
-            {
-                return errorHandler.Handle(t);
-            }
+        public IJsExpression DoProcess() {
+            return JsContext.Execute(ProcessEvent);
         }
 
         private void ProcessEvent() {
@@ -175,13 +161,6 @@ namespace Nasty.Core
                 }
             }
             return args;
-        }
-
-        private class FormEngineException : Exception {
-
-            public FormEngineException(Exception e): base("", e) 
-            {
-            }
         }
     }
 }
