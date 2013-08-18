@@ -13,19 +13,21 @@ namespace Nasty.Core
      * @version 1.0
      *
      */
-    public class FormEngine : IProcessingLink
+    public class FormEngine
     {
 
         private readonly IParameterProvider _parameterProvider;
         private readonly IViewRenderer _viewRenderer;
         private readonly IFormPersister _formPersister;
+        private readonly IMethodInvoker _methodInvoker;
 
         public FormEngine(IParameterProvider parameterProvider,
-                          IViewRenderer viewRenderer, IFormPersister formPersister) {
+                          IViewRenderer viewRenderer, IFormPersister formPersister, IMethodInvoker methodInvoker) {
 
             _parameterProvider = parameterProvider;
             _viewRenderer = viewRenderer;
             _formPersister = formPersister;
+            _methodInvoker = methodInvoker;
         }
 
         /**
@@ -127,40 +129,12 @@ namespace Nasty.Core
         private void ProcessEvent() {
             var form = _formPersister.Lookup(GetParameter("state"));
             form.FormEngine = this;
-            var eventHandler = GetParameter("eventHandler");
-            var args = ExtractEventArgs(_parameterProvider.GetParameterMap(), form);
-            var method = form.GetType().GetMethod(eventHandler, new [] {typeof(EventArgs)});
-            method.Invoke(form, new object[] {args});
+            _methodInvoker.Invoke(form, _parameterProvider);
             UpdateForm(form);
         }
 
         private void UpdateForm(Form form) {
             form.Update(_formPersister.Persist(form));
-        }
-
-        private const string EventPrefix = "EVT.";
-
-        /**
-         * Fills EventArgs object from the request parameters
-         *
-         * @param map       request parameters
-         * @param form      form, owning the event
-         * @return          filled out EventArgs-object
-         */
-        private static EventArgs ExtractEventArgs(IDictionary<string, string[]> map, Form form) {
-
-            var args = new EventArgs();
-            foreach(var key in map.Keys) {
-                if(key.StartsWith(EventPrefix)) {
-                    var value = map[key][0];
-                    var newKey = key.Substring(EventPrefix.Length);
-                    if("srcId".Equals(newKey))
-                        args.SrcId = value.Substring(form.Id.Length + 1);
-                    else
-                        args[newKey] = value;
-                }
-            }
-            return args;
         }
     }
 }

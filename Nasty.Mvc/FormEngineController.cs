@@ -19,12 +19,9 @@ namespace Nasty.Mvc
             var parameterProvider = new RequestParameterProvider(req);
             var viewRenderer = new MvcViewRenderer(ControllerContext);
 
-            var link = new SimpleErrorHandlingLink
-                {
-                    Next = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance)
-                };
-            var expr = link.DoProcess();
-            
+            var formEngine = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance,
+                           new SimpleErrorHandler(new DefaultMethodInvoker()));
+            var expr = formEngine.DoProcess();
 
             //if(resp.isCommitted()) return;
 

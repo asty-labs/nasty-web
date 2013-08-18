@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System;
 using Nasty.Core;
-using Nasty.Js;
 using Nasty.Utils;
 
 namespace NastyTests.Core
@@ -14,7 +13,7 @@ namespace NastyTests.Core
         public void TestProcess() {
             var parameterProvider = new TestParameterProvider();
             parameterProvider.Add("eventHandler", "SuccessfulEvent");
-            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance);
+            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance, new DefaultMethodInvoker());
             var form = new MyForm {Id = "formId"};
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));
             parameterProvider.Add("EVT.srcId", "formId.testSrcId");
@@ -28,31 +27,15 @@ namespace NastyTests.Core
         [TestMethod]
         public void TestProcessWithError() {
             var parameterProvider = new TestParameterProvider();
-            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance);
+            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance, new SimpleErrorHandler(new DefaultMethodInvoker()));
             parameterProvider.Add("eventHandler", "ErroneousEvent");
             var form = new MyForm {Id = "formId"};
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));
             parameterProvider.Add("EVT.srcId", "formId.testSrcId");
             parameterProvider.Add("EVT.someParameter", "testParameter");
 
-            var link = new TestErrorHandlingLink {Next = formEngine};
-            var expr = link.DoProcess();
-            Assert.AreEqual("alert(\"some error\")", expr.Encode());
-        }
-
-        public class TestErrorHandlingLink : AbstractProcessingLink
-        {
-            public override IJsExpression DoProcess()
-            {
-                try
-                {
-                    return base.DoProcess();
-                }
-                catch (Exception e)
-                {
-                    return new JsCall("alert", e.Message);
-                }
-            }
+            var expr = formEngine.DoProcess();
+            Assert.IsTrue(expr.Encode().StartsWith("alert(\"some error\")"));
         }
 
         public class TestParameterProvider : IParameterProvider {

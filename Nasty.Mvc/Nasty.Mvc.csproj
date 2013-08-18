@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SimpleErrorHandlingLink.cs" />
     <Compile Include="FormEngineController.cs" />
     <Compile Include="FormViewer.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />

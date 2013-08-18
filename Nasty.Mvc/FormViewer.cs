@@ -13,7 +13,7 @@ namespace Nasty.Mvc
             var req = HttpContext.Current.Request;
             var parameterProvider = new RequestParameterProvider(req);
             var viewRenderer = new MvcViewRenderer((ControllerContext)HttpContext.Current.Items["controllerContext"]);
-			var formEngine = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance);
+			var formEngine = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance, new DefaultMethodInvoker());
 			var htmlFragment = formEngine.RenderMainView(form);
             writer.Write(htmlFragment.Html);
             writer.Write(htmlFragment.Script.EncodeOnLoadAsHtml());

@@ -52,6 +52,7 @@
     <Compile Include="Core\Component.cs" />
     <Compile Include="Core\ComponentProxy.cs" />
     <Compile Include="Core\ComponentRenderingHelper.cs" />
+    <Compile Include="Core\DefaultMethodInvoker.cs" />
     <Compile Include="Core\EventArgs.cs" />
     <Compile Include="Core\Form.cs" />
     <Compile Include="Core\FormEngine.cs" />
@@ -59,9 +60,10 @@
     <Compile Include="Core\FormPersister.cs" />
     <Compile Include="Core\HtmlFragment.cs" />
     <Compile Include="Core\InitProperty.cs" />
+    <Compile Include="Core\MethodInvoker.cs" />
     <Compile Include="Core\ParameterProvider.cs" />
-    <Compile Include="Core\ProcessChain.cs" />
     <Compile Include="Core\RenderingContext.cs" />
+    <Compile Include="Core\SimpleErrorHandler.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Js\JsBoolean.cs" />
     <Compile Include="Js\JsCall.cs" />
