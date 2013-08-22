@@ -13,7 +13,7 @@ namespace NastyTests.Core
         public void TestProcess() {
             var parameterProvider = new TestParameterProvider();
             parameterProvider.Add("eventHandler", "SuccessfulEvent");
-            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance, new DefaultMethodInvoker());
+            var formEngine = new FormEngine(parameterProvider, null, new ClientSideFormPersister(), new DefaultMethodInvoker());
             var form = new MyForm {Id = "formId"};
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));
             parameterProvider.Add("EVT.srcId", "formId.testSrcId");
@@ -27,7 +27,7 @@ namespace NastyTests.Core
         [TestMethod]
         public void TestProcessWithError() {
             var parameterProvider = new TestParameterProvider();
-            var formEngine = new FormEngine(parameterProvider, null, ClientSideFormPersister.Instance, new SimpleErrorHandler(new DefaultMethodInvoker()));
+            var formEngine = new FormEngine(parameterProvider, null, new ClientSideFormPersister(), new SimpleErrorHandler(new DefaultMethodInvoker()));
             parameterProvider.Add("eventHandler", "ErroneousEvent");
             var form = new MyForm {Id = "formId"};
             parameterProvider.Add("state", Convert.ToBase64String(SerializationUtils.SerializeObject(form)));

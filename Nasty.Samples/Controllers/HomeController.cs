@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Nasty.Mvc;
 
 namespace Nasty.Samples.Controllers
 {
@@ -6,7 +7,7 @@ namespace Nasty.Samples.Controllers
     {
         public ActionResult Index()
         {
-            HttpContext.Items["controllerContext"] = ControllerContext;
+            FormViewer.ExposeControllerContext(ControllerContext);
             return View();
         }
 

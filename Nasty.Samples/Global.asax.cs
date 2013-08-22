@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Nasty.Mvc;
 
 namespace Nasty.Samples
 {
@@ -26,6 +27,8 @@ namespace Nasty.Samples
 
         protected void Application_Start()
         {
+            FormEngineFactory.Instance = new DefaultMvcFormEngineFactory();
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);

@@ -6,14 +6,13 @@ namespace Nasty.Mvc
 {
     public class FormViewer : Control {
 
+        private const string CurrentContextKey = "controllerContext";
+
         protected override void Render(HtmlTextWriter writer)
         {
             var form = FormEngine.CreateInitialForm(EntryPointClass, Parameters);
 			form.Id = ID;
-            var req = HttpContext.Current.Request;
-            var parameterProvider = new RequestParameterProvider(req);
-            var viewRenderer = new MvcViewRenderer((ControllerContext)HttpContext.Current.Items["controllerContext"]);
-			var formEngine = new FormEngine(parameterProvider, viewRenderer, ClientSideFormPersister.Instance, new DefaultMethodInvoker());
+            var formEngine = FormEngineFactory.Instance.GetFormEngine(HttpContext.Current, (ControllerContext)HttpContext.Current.Items[CurrentContextKey]);
 			var htmlFragment = formEngine.RenderMainView(form);
             writer.Write(htmlFragment.Html);
             writer.Write(htmlFragment.Script.EncodeOnLoadAsHtml());
@@ -26,5 +25,10 @@ namespace Nasty.Mvc
 	    public string Parameters {
 		    get; set;
 	    }
+
+        public static void ExposeControllerContext(ControllerContext controllerContext)
+        {
+            HttpContext.Current.Items[CurrentContextKey] = controllerContext;
+        }
     }
 }
