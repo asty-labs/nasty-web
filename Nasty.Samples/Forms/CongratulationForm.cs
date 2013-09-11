@@ -15,7 +15,7 @@ namespace Nasty.Samples.Forms
             return _numberOfTries;
         }
 
-        public void StartNewGame(Core.EventArgs e)
+        public void StartNewGame()
         {
             ReplaceWith(new MainForm());
         }

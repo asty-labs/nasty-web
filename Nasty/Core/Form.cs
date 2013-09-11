@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Nasty.Core
 {
     /**
@@ -58,7 +61,7 @@ namespace Nasty.Core
          * @param initialId to be adjusted
          * @return unique id
          */
-	    private string GlobalizeId(string initialId) {
+	    public string GlobalizeId(string initialId) {
 		    if(initialId == null)
 			    initialId = "c" + _lastAssignedChildId++;
 		    return ClientId + "." + initialId;
@@ -80,9 +83,19 @@ namespace Nasty.Core
          */
 	    protected T Get<T>(string id) where T : ComponentProxy, new() {
 			var obj = new T {Id = GlobalizeId(id)};
-	        obj.Restore(_formEngine.GetParameterMap());
+	        obj.Restore(_formEngine.ParameterProvider);
 			return obj;
 	    }
+
+        public object Get(Type type, string id)
+        {
+            var constructor = type.GetConstructors().First(x => !x.GetParameters().Any());
+            var obj = (ComponentProxy)constructor.Invoke(new object[] { });
+            obj.Id = GlobalizeId(id);
+            obj.Restore(_formEngine.ParameterProvider);
+            return obj;
+        }
+
 
         /**
          * This method creates component proxy for the given type and selector. The ids
@@ -101,13 +114,43 @@ namespace Nasty.Core
         /**
          * This method can be used in the event handlers of the Form to get request parameters.
          *
-         * @param name  local parameter name
-         * @return      value of the parameter
+         * @return      form local parameter provider
          *
          */
-	    protected string GetParameter(string name) {
-		    return _formEngine.GetParameter(GlobalizeId(name));
-	    }
+        protected IParameterProvider Parameters
+        {
+            get { return new FormLocalParameterProvider(this); }
+        }
+
+        class FormLocalParameterProvider : IParameterProvider {
+
+            private readonly Form _form;
+
+            public FormLocalParameterProvider(Form form)
+            {
+                _form = form;
+            }
+
+            public string GetParameter(string name) {
+                return _form._formEngine.ParameterProvider.GetParameter(_form.GlobalizeId(name));
+            }
+
+            public IUploadedFile GetFile(string name) {
+                return _form._formEngine.ParameterProvider.GetFile(_form.GlobalizeId(name));
+            }
+
+            public IEnumerable<string> ParameterNames {
+                get
+                {
+                    var prefix = _form.ClientId + ".";
+                    return (from name in _form._formEngine.ParameterProvider.ParameterNames where name.StartsWith(prefix) select name.Substring(prefix.Length)).ToList();
+                }
+            }
+
+            public string[] GetParameterValues(string name) {
+                return _form._formEngine.ParameterProvider.GetParameterValues(_form.GlobalizeId(name));
+            }
+        }
 
         /**
          * This method can be used in the event handlers of the Form for rendering view fragments.

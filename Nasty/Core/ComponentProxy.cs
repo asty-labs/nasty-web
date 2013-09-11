@@ -88,7 +88,7 @@ namespace Nasty.Core
          *
          * @param data all available data to restore component state from
          */
-        public virtual void Restore(IDictionary<string, string[]> data) {
+        public virtual void Restore(IParameterProvider data) {
 
         }
     }

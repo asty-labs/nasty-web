@@ -50,8 +50,19 @@ namespace NastyTests.Core
                 return _parameters[name][0];
             }
 
-            public IDictionary<string, string[]> GetParameterMap() {
-                return _parameters;
+            public IUploadedFile GetFile(string name)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<string> ParameterNames
+            {
+                get { return _parameters.Keys; }
+            }
+
+            public string[] GetParameterValues(string name)
+            {
+                return _parameters[name];
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Nasty.Core;
 namespace Nasty.Components
 {
@@ -18,9 +19,9 @@ namespace Nasty.Components
 
         private IEnumerable<Option> _options;
 
-        public override void Restore(IDictionary<string, string[]> data) {
-            if(data.ContainsKey(Id))
-                _value = data[Id][0];
+        public override void Restore(IParameterProvider data) {
+            if(data.ParameterNames.Contains(Id))
+                _value = data.GetParameter(Id);
         }
 
         public override string HtmlTag {

@@ -33,11 +33,7 @@ namespace Nasty.Components
 	    }
 
         public override string HtmlTag {
-            get { return "input"; }
-        }
-
-        protected override void FillHtmlAttributes(IDictionary<string, string> attributes) {
-            attributes.Add("type", "button");
+            get { return "button"; }
         }
     }
 }

@@ -20,15 +20,12 @@ namespace Nasty.Samples.Forms
             return "";
         }
 
-        public void StartNewGame(Core.EventArgs e) {
+        public void StartNewGame() {
             ReplaceWith(new MainForm());
         }
 
-        public void ProcessGuess(Core.EventArgs e)
+        public void ProcessGuess(JQuery stats, TextBox guessEntryField)
         {
-            var stats = Get<JQuery>("stats");
-            var guessEntryField = Get<TextBox>("guessEntryField");
-
             int guess;
             try {
                 guess = int.Parse(guessEntryField.Value);

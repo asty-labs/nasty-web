@@ -43,6 +43,7 @@
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\CheckBox.cs" />
     <Compile Include="Components\ComboBox.cs" />
+    <Compile Include="Components\FileUpload.cs" />
     <Compile Include="Components\JQuery.cs" />
     <Compile Include="Components\Link.cs" />
     <Compile Include="Components\Option.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Core\ParameterProvider.cs" />
     <Compile Include="Core\RenderingContext.cs" />
     <Compile Include="Core\SimpleErrorHandler.cs" />
+    <Compile Include="Core\UploadedFile.cs" />
     <Compile Include="Core\ViewRenderer.cs" />
     <Compile Include="Js\JsBoolean.cs" />
     <Compile Include="Js\JsCall.cs" />

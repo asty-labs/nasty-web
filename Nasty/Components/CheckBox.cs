@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Nasty.Core;
 namespace Nasty.Components
 {
@@ -21,8 +22,8 @@ namespace Nasty.Components
         [InitProperty]
         private string OnChange { get; set; }
 
-        public override void Restore(IDictionary<string, string[]> data) {
-            _checked = data.ContainsKey(Id) && "1".Equals(data[Id][0]);
+        public override void Restore(IParameterProvider data) {
+            _checked = data.ParameterNames.Contains(Id) && "1".Equals(data.GetParameter(Id));
         }
 
         public override string HtmlTag {

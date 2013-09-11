@@ -57,12 +57,8 @@ namespace Nasty.Core
             throw new Exception("Wrong class: must be either FormFactory or Form");
         }
     
-        public virtual string GetParameter(string key) {
-            return _parameterProvider.GetParameter(key);
-        }
-
-        public virtual IDictionary<string, string[]> GetParameterMap() {
-            return _parameterProvider.GetParameterMap();
+        public virtual IParameterProvider ParameterProvider {
+            get { return _parameterProvider; }
         }
 
         /**
@@ -127,7 +123,7 @@ namespace Nasty.Core
         }
 
         private void ProcessEvent() {
-            var form = _formPersister.Lookup(GetParameter("state"));
+            var form = _formPersister.Lookup(_parameterProvider.GetParameter("state"));
             form.FormEngine = this;
             _methodInvoker.Invoke(form, _parameterProvider);
             UpdateForm(form);

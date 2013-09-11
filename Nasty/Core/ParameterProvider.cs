@@ -13,7 +13,11 @@ namespace Nasty.Core
 
         string GetParameter(string name);
 
-        IDictionary<string, string[]> GetParameterMap();
+        IUploadedFile GetFile(string name);
+
+        IEnumerable<string> ParameterNames { get; }
+
+        string[] GetParameterValues(string name);
 
     }
 }
